@@ -136,7 +136,7 @@ class SpiderLoader:
         return list(self._spiders.keys())
 
     def list_brands(self):
-        return list(self._brands.keys())
+        return self._brands
 
 
 @implementer(ISpiderLoader)

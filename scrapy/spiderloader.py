@@ -61,7 +61,7 @@ class SpiderLoader:
         self.spider_modules: list[str] = settings.getlist("SPIDER_MODULES")
         self.warn_only: bool = settings.getbool("SPIDER_LOADER_WARN_ONLY")
         self._spiders: dict[str, type[Spider]] = {}
-        self._brands: dict[str, list[str]] = {}
+        self._brands: dict[str, dict[str, list[str]]] = {}
         self._found: defaultdict[str, list[tuple[str, str]]] = defaultdict(list)
         self._load_all_spiders()
 

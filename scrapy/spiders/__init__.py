@@ -39,7 +39,7 @@ class Spider(object_ref):
     """
 
     name: str
-    brands: list[str]
+    brands: dict[str, list[str]] | None = None
     custom_settings: dict[_SettingsKeyT, Any] | None = None
 
     #: Start URLs. See :meth:`start`.

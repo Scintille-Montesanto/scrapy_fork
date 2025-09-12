@@ -20,5 +20,5 @@ class Command(ScrapyCommand):
     def run(self, args: list[str], opts: argparse.Namespace) -> None:
         assert self.settings is not None
         spider_loader = get_spider_loader(self.settings)
-        for s in sorted(spider_loader.list_brands()):
-            print(s)
+        for k,v in spider_loader.list_brands().items():
+            print(f"{k}: {v}")

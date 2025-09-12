@@ -43,7 +43,7 @@ class SpiderLoaderProtocol(Protocol):
         """Return a list with the names of all spiders available in the
         project"""
 
-    def list_brands(self):
+    def list_brands(self)->dict[str, object]:
         """Return a list with the names of all brands available in the"""
 
     def find_by_request(self, request: Request) -> __builtins__.list[str]:
@@ -153,8 +153,8 @@ class DummySpiderLoader:
     def list(self) -> list[str]:
         return []
 
-    def list_brands(self):
-        return []
+    def list_brands(self)->dict[str, object]:
+        return {}
 
     def find_by_request(self, request: Request) -> __builtins__.list[str]:
         return []

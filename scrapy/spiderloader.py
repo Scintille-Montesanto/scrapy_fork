@@ -43,6 +43,9 @@ class SpiderLoaderProtocol(Protocol):
         """Return a list with the names of all spiders available in the
         project"""
 
+    def list_brands(self):
+        """Return a list with the names of all brands available in the"""
+
     def find_by_request(self, request: Request) -> __builtins__.list[str]:
         """Return the list of spiders names that can handle the given request"""
 
@@ -58,6 +61,7 @@ class SpiderLoader:
         self.spider_modules: list[str] = settings.getlist("SPIDER_MODULES")
         self.warn_only: bool = settings.getbool("SPIDER_LOADER_WARN_ONLY")
         self._spiders: dict[str, type[Spider]] = {}
+        self._brands: dict[str, list[str]] = {}
         self._found: defaultdict[str, list[tuple[str, str]]] = defaultdict(list)
         self._load_all_spiders()
 
@@ -84,6 +88,7 @@ class SpiderLoader:
         for spcls in iter_spider_classes(module):
             self._found[spcls.name].append((module.__name__, spcls.__name__))
             self._spiders[spcls.name] = spcls
+            self._brands[spcls.name] = spcls.brands
 
     def _load_all_spiders(self) -> None:
         for name in self.spider_modules:
@@ -130,6 +135,9 @@ class SpiderLoader:
         """
         return list(self._spiders.keys())
 
+    def list_brands(self):
+        return list(self._brands.keys())
+
 
 @implementer(ISpiderLoader)
 class DummySpiderLoader:
@@ -143,6 +151,9 @@ class DummySpiderLoader:
         raise KeyError("DummySpiderLoader doesn't load any spiders")
 
     def list(self) -> list[str]:
+        return []
+
+    def list_brands(self):
         return []
 
     def find_by_request(self, request: Request) -> __builtins__.list[str]:

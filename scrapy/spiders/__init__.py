@@ -50,6 +50,8 @@ class Spider(object_ref):
             self.name: str = name
         elif not getattr(self, "name", None):
             raise ValueError(f"{type(self).__name__} must have a name")
+        if self.brands is None:
+            raise ValueError(f"{type(self).__name__} must have the brands attribute")
         self.__dict__.update(kwargs)
         if not hasattr(self, "start_urls"):
             self.start_urls: list[str] = []
